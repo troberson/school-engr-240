@@ -1,6 +1,15 @@
 function [total_tax, effective_rate] = tax_calculator2(income)
     % TAX_CALCULATOR    Calculate tax burden and effective rate
     %   [total_tax, effective_rate] = TAX_CALCULATOR(income)
+    %
+    % INPUT
+    %   income          Total income in dollars.
+    %
+    % OUTPUT
+    %   total_tax       Amount of tax owed.
+    %   effective_rate  Effective tax rate: amount owed / income (0 to 1).
+
+    narginchk(1, 1);
 
     % General tax info
     deduction = 6300;
@@ -21,12 +30,8 @@ function [total_tax, effective_rate] = tax_calculator2(income)
     if isempty(full_idx)
         full_idx = length(rates);
 
-    % For incomes in the lowest bracket, use the lowest marginal rate
-    elseif full_idx == 0
-        full_idx = 1;
-
     % Income below taxable amount, RETURN
-    elseif full_idx == -1
+    elseif full_idx == 0
         total_tax = 0;
         effective_rate = 0;
         return;
